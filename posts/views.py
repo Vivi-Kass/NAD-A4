@@ -89,20 +89,18 @@ def like_unlike_post(request):
 
 def update_post(request, pk):
     obj = Post.objects.get(pk=pk)
-
     if request.headers.get('x-requested-with') == 'XMLHttpRequest': #replaces is_ajax because it doesn't work
+        
         new_title = request.POST.get('title')
         new_body = request.POST.get('body')
-
         obj.title = new_title
         obj.body = new_body
-
         obj.save()
 
-    return JsonResponse({
-        'title': new_title,
-        'body': new_body,
-    })
+        return JsonResponse({
+            'title': new_title,
+            'body': new_body
+        })
 
 def delete_post(request, pk):
     obj = Post.objects.get(pk=pk)
